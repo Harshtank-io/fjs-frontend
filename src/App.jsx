@@ -25,8 +25,7 @@ import Home from "./pages/Home";
 import Framework from "./pages/Framework";
 import Layout from "./Layout";
 import Login from "./components/Login"; // Import the Login component
-import Signup from "./components/Signup"; // Import the Signup component
-
+import SignUp from "./components/SignUp"; // Import the Signup component
 function App() {
   return (
     <Router>
@@ -35,7 +34,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="framework/:id" element={<Framework />} />
           <Route path="login" element={<Login />} /> {/* Login route */}
-          <Route path="signup" element={<Signup />} /> {/* Signup route */}
+          <Route path="signup" element={<SignUp />} /> {/* Signup route */}
         </Route>
       </Routes>
     </Router>
