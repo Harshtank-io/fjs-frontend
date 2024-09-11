@@ -92,7 +92,7 @@ function Home() {
       {filteredFrameworks.length === 0 && !error && (
         <p className="text-center">No frameworks found.</p>
       )}
-      <div className="flex flex-wrap justify-center h-[calc(100vh-100px)] my-auto overflow-y-scroll border-2 border-black rounded">
+      <div className="flex flex-wrap gap-2 justify-center h-[calc(100vh-100px)] my-auto overflow-y-scroll border-2 border-black rounded p-5">
         {filteredFrameworks.map((framework) => {
           const ratingCounts = processRatings(framework.ratings);
 
