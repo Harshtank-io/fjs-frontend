@@ -14,7 +14,7 @@ function Search({ onSearch }) {
         type="text"
         value={query}
         onChange={handleInputChange}
-        className="w-full px-2 py-1 md:px-4 md:py-1"
+        className="w-full px-2 py-1 md:px-4 md:py-1 focus:outline-none"
         placeholder="Search frameworks..."
       />
       {/* <button
