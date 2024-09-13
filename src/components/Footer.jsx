@@ -17,7 +17,9 @@ const Footer = () => {
               <a href="#features" className="hover:text-blue-500">
                 Features
               </a>
-
+              <a href="#pricing" className="hover:text-blue-500">
+                Pricing
+              </a>
               <a href="#resources" className="hover:text-blue-500">
                 Resources
               </a>
@@ -26,7 +28,9 @@ const Footer = () => {
               <a href="#twitter" className="hover:text-yellow-300">
                 <FaTwitter />
               </a>
-
+              <a href="#facebook" className="hover:text-yellow-300">
+                <FaFacebookF />
+              </a>
               <a href="#instagram" className="hover:text-yellow-300">
                 <FaInstagram />
               </a>

@@ -5,7 +5,7 @@ import Footer from "./components/Footer";
 
 function Layout() {
   return (
-    <div className="container py-5 tracking-wider font-NA">
+    <div className="container ">
       <Header />
       <main>
         <Outlet /> {/* This is where nested routes will render their content */}
