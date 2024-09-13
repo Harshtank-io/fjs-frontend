@@ -13,7 +13,7 @@ import {
   Legend,
   LineController,
 } from "chart.js";
-import Search from "../components/Search"; // Import the Search component
+import Search from "../components/Search";
 
 // Register Chart.js components
 ChartJS.register(
@@ -31,13 +31,13 @@ function Home() {
   const [frameworks, setFrameworks] = useState([]);
   const [filteredFrameworks, setFilteredFrameworks] = useState([]);
   const [error, setError] = useState(null);
-  const [query, setQuery] = useState(""); // State to track the search query
+  const [query, setQuery] = useState(""); 
 
   const fetchFrameworks = async () => {
     try {
       const response = await getFrameworks();
       setFrameworks(response.data);
-      setFilteredFrameworks(response.data); // Initialize filteredFrameworks with all data
+      setFilteredFrameworks(response.data);
     } catch (error) {
       setError("Failed to fetch frameworks.");
       console.error("Error fetching frameworks:", error);
@@ -60,7 +60,7 @@ function Home() {
     const counts = [0, 0, 0, 0, 0];
     ratings.forEach(({ rating }) => {
       if (rating >= 1 && rating <= 5) {
-        counts[rating - 1] += 1;
+        counts[Math.floor(rating) - 1] += 1;
       }
     });
     return counts;
@@ -86,7 +86,7 @@ function Home() {
         <h1 className="py-5 text-2xl font-bold transition-all duration-300 ease-in-out md:text-5xl hover:text-black">
           Frameworks
         </h1>
-        <Search onSearch={handleSearch} /> {/* Add the Search component */}
+        <Search onSearch={handleSearch} />
       </div>
       {error && <p className="text-center text-red-500">{error}</p>}
       {filteredFrameworks.length === 0 && !error && (
@@ -113,11 +113,11 @@ function Home() {
           const options = {
             plugins: {
               legend: {
-                display: false, // Hide the legend
+                display: false, 
               },
               tooltip: {
                 callbacks: {
-                  label: () => "", // Hide tooltip labels
+                  label: () => "", 
                 },
               },
             },
@@ -144,14 +144,17 @@ function Home() {
                 {highlightText(framework.name, query)}
               </h2>
               <Line data={chartData} options={options} />
-              <div className="py-2 mt-4 text-yellow-400 transition-all duration-300 ease-in-out bg-black border-2 border-black rounded hover:bg-white hover:text-black">
                 <Link
+                  onClick={() => {
+                    window.scrollTo({ top: 0, behavior: "smooth" })
+                  }}
                   to={`/framework/${framework._id}`}
                   className="block text-center hover:text-black"
                 >
+              <div className="py-2 mt-4 text-yellow-400 transition-all duration-300 ease-in-out bg-black border-2 border-black rounded hover:bg-white hover:text-black">
                   View Details
-                </Link>
               </div>
+                </Link>
             </div>
           );
         })}
