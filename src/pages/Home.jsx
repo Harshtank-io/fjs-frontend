@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getFrameworks } from "../api/frameworks";
+import { getFramework } from "../api/frameworks";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -35,7 +35,7 @@ function Home() {
 
   const fetchFrameworks = async () => {
     try {
-      const response = await getFrameworks();
+      const response = await getFramework();
       setFrameworks(response.data);
       setFilteredFrameworks(response.data);
     } catch (error) {
@@ -80,7 +80,7 @@ function Home() {
   };
 
   return (
-    <div className="">
+    <div className="font-NA">
       <div className="flex items-center justify-between w-full">
         <h1 className="py-5 text-2xl font-bold transition-all duration-300 ease-in-out md:text-5xl hover:text-black">
           Frameworks
@@ -138,7 +138,7 @@ function Home() {
           };
 
           return (
-            <div key={framework._id} className="max-w-xl mx-auto my-8 font-NA">
+            <div key={framework._id} className="max-w-xl mx-auto my-8">
               <h2 className="text-2xl text-center">
                 {highlightText(framework.name, query)}
               </h2>

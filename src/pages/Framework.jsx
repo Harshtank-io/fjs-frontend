@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+
 import { useParams } from "react-router-dom";
 import { getFramework, postFrameworkRating } from "../api/frameworks";
 import ReactStars from "react-stars";
@@ -15,9 +15,10 @@ function Framework() {
   const fetchFramework = async () => {
     try {
       setIsLoading(true);
-      const response = await getFramework(id);
+      const response = await getFramework();
+      const selectedFramework = response.data.find((f) => f._id === id);
 
-      setFramework(response.data);
+      setFramework(selectedFramework);
     } catch (error) {
       console.error("Error fetching framework:", error);
     } finally {
@@ -27,15 +28,12 @@ function Framework() {
 
   const submitRating = async () => {
     try {
-      const newRating = { rating, comment };
+      await postFrameworkRating(id, rating, comment);
+      const newRating = { rating, comment, user: "Anonymous" };
       setFramework((prevFramework) => ({
         ...prevFramework,
-        ratings: [...prevFramework.ratings, newRating],
+        ratings: [...(prevFramework.ratings || []), newRating],
       }));
-
-      // API call moved after UI update
-      await postFrameworkRating(id, rating, comment);
-
       setRating(0);
       setComment("");
     } catch (error) {
@@ -54,11 +52,16 @@ function Framework() {
       </div>
     );
 
-  if (!framework) return <div>Framework not found</div>;
+  if (!framework)
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <h2 className="text-2xl font-bold text-red-500">Framework not found</h2>
+      </div>
+    );
 
   return (
     <>
-      <div className="container p-6 mx-auto">
+      <div className="container p-6 mx-auto font-NA">
         <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
           <div className="flex flex-col items-center w-full md:w-1/4">
             <img
@@ -106,9 +109,7 @@ function Framework() {
           <div className="mt-8 md:w-3/4 w-full">
             <h3 className="mb-4 text-xl font-semibold">Ratings</h3>
             <div className="overflow-y-scroll h-96">
-              {framework.ratings.length === 0 ? (
-                <p>No ratings available.</p>
-              ) : (
+              {framework.ratings && framework.ratings.length > 0 ? (
                 <ul className="space-y-4">
                   {framework.ratings.map((apirating, index) => (
                     <li
@@ -129,6 +130,8 @@ function Framework() {
                     </li>
                   ))}
                 </ul>
+              ) : (
+                <p>No ratings available.</p>
               )}
             </div>
           </div>
